@@ -1,6 +1,12 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { Header } from "@/components/auth/header";
 
 interface CardWrapperProps {
   children: React.ReactNode;
@@ -19,7 +25,13 @@ export const CardWrapper = ({
 }: CardWrapperProps) => {
   return (
     <>
-      <Card className="w-[400px] shadow-md">{children}</Card>
+      <Card className="w-[400px] shadow-md">
+        <CardHeader>
+          <Header label={headerLabel} />
+        </CardHeader>
+        <CardContent>{children}</CardContent>
+        {showSocial && <CardFooter>TODO: Social</CardFooter>}
+      </Card>
     </>
   );
 };
