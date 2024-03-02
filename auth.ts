@@ -13,7 +13,7 @@ export const {
   signOut,
 } = NextAuth({
   callbacks: {
-    async signIn({ user }) {
+    /* async signIn({ user }) {
       const existingUser = await getUserById(user.id);
 
       if (!existingUser || !existingUser.emailVerified) {
@@ -21,7 +21,7 @@ export const {
       }
 
       return true;
-    },
+    }, */
     async session({ token, session }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
