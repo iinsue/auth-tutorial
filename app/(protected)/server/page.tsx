@@ -1,3 +1,4 @@
+import { UserInfo } from "@/components/user-info";
 import { currentUser } from "@/lib/auth";
 
 const ServerPage = async () => {
@@ -5,7 +6,7 @@ const ServerPage = async () => {
 
   return (
     <>
-      <div>{JSON.stringify(user)}</div>
+      <UserInfo label="💻 Server Component" user={user} />
     </>
   );
 };
