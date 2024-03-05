@@ -1,5 +1,8 @@
+"use server";
+
 import * as z from "zod";
 
+import { update } from "@/auth";
 import { db } from "@/lib/db";
 import { SettingsSchema } from "@/schemas";
 import { getUserById } from "@/data/user";
@@ -18,10 +21,19 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
     return { error: "Unauthorized" };
   }
 
-  await db.user.update({
+  const updatedUser = await db.user.update({
     where: { id: dbUser.id },
     data: {
       ...values,
+    },
+  });
+
+  update({
+    user: {
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isTwoFactorEnabled: updatedUser.isTwoFactorEnabled,
+      role: updatedUser.role,
     },
   });
 
