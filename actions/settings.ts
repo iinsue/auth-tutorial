@@ -21,6 +21,14 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
     return { error: "Unauthorized" };
   }
 
+  // 사용자가 소셜로 가입했을 경우 정보 변경
+  if (user.isOAuth) {
+    values.email = undefined;
+    values.password = undefined;
+    values.newPassword = undefined;
+    values.isTwoFactorEnabled = undefined;
+  }
+
   const updatedUser = await db.user.update({
     where: { id: dbUser.id },
     data: {
