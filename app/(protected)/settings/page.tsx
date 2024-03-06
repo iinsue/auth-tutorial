@@ -4,7 +4,6 @@ import { useState, useTransition } from "react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
 
 import { settings } from "@/actions/settings";
 import { FormError } from "@/components/form-error";
@@ -35,8 +34,6 @@ import { UserRole } from "@prisma/client";
 
 const SettingsPage = () => {
   const user = useCurrentUser();
-
-  const { update } = useSession();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
@@ -62,7 +59,6 @@ const SettingsPage = () => {
           }
 
           if (data.success) {
-            update();
             setSuccess(data.success);
           }
         })
